@@ -1,0 +1,2 @@
+# CozyCloudBot
+Weather forecast bot
