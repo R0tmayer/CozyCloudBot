@@ -1,4 +1,6 @@
+using CozyCloudBot.DTO;
 using CozyCloudBot.Extensions;
+using Newtonsoft.Json;
 
 namespace CozyCloudBot.Services;
 
@@ -20,7 +22,9 @@ public class WeatherService : IWeatherService
         responce.EnsureSuccessStatusCode().WriteRequestToConsole();
 
         var jsonResponce = await responce.Content.ReadAsStringAsync();
-        return jsonResponce;
+        var weatherDto = JsonConvert.DeserializeObject<WeatherDTO>(jsonResponce);
+        string text = BuildResponceText(weatherDto);
+        return text;
     }
 
     private string BuildUrl(string city)
@@ -29,5 +33,18 @@ public class WeatherService : IWeatherService
                + $"key={_weatherApiKey}"
                + $"&q={city}"
                + $"&aqi=no";
+    }
+
+    private string BuildResponceText(WeatherDTO weatherDto)
+    {
+        LocationDTO locationDTO = weatherDto.Location;
+        CurrentDTO currentDTO = weatherDto.Current;
+        
+        string location = $"{locationDTO.Country}, {locationDTO.Region}, {locationDTO.City}";
+        
+        return $"Город: {location}\n"
+               + $"Время: {currentDTO.LastUpdated}\n"
+               + $"Температура: {currentDTO.TempC}\n"
+               + $"Ощущается как: {currentDTO.TempFeelLikeC}";
     }
 }
