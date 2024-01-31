@@ -29,7 +29,7 @@ botClient.StartReceiving(
 
 while(true)
 {
-    await Task.Delay(100000);
+    await Task.Delay(1000000);
     
     string weather = await weatherService.GetWeatherAsync(city);
 
