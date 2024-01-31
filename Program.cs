@@ -29,7 +29,14 @@ botClient.StartReceiving(
 
 while(true)
 {
-    await Task.Delay(1000);
+    await Task.Delay(100000);
+    
+    string weather = await weatherService.GetWeatherAsync(city);
+
+    await botClient.SendTextMessageAsync(
+        chatId: 453437236,
+        text: weather,
+        cancellationToken: cts.Token);
 }
 
 async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)

@@ -41,10 +41,11 @@ public class WeatherService : IWeatherService
         CurrentDTO currentDTO = weatherDto.Current;
         
         string location = $"{locationDTO.Country}, {locationDTO.Region}, {locationDTO.City}";
-        
+
         return $"Город: {location}\n"
                + $"Время прогноза: {currentDTO.LastUpdated.ToString("dd/MM/yyyy HH:mm")}\n"
                + $"Температура: {currentDTO.TempC} C°\n"
-               + $"Ощущается как: {currentDTO.TempFeelLikeC} C°";
+               + $"Ощущается как: {currentDTO.TempFeelLikeC} C°\n"
+               + $"Скорость ветра: {currentDTO.WindKph} км\\ч";
     }
 }

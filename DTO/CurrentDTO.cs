@@ -12,4 +12,7 @@ public class CurrentDTO
 
     [JsonProperty("feelslike_c")]
     public float TempFeelLikeC;
+    
+    [JsonProperty("wind_kph")]
+    public float WindKph;
 }
